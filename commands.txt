@@ -1,0 +1,10 @@
+tar xzvf hdc-0.11-new.img.tar.gz
+make
+qemu-system-i386  -m 16M -boot a -fda Image -hda ./hdc-0.11-new.img
+gdb tools/system 
+~/bin/calltree -np -gb lf=main *.c 
+~/bin/calltree -np -gb -m *.c
+~/bin/calltree -np -b -dot list=start_kernel ./init/*.c > ~/start_kernel.dot
+dot -T png start_kernel.dot -o ./testhaha.png
+~/bin/calltree -np -gb -m *.c | ~/bin/tree2dot-filter.sh  > ~/test.dot
+dot -Tjpg test.dot -o test.jpg
